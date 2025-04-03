@@ -1,0 +1,741 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(
+        45deg,
+        #1a1a2e 0%,
+        #16213e 25%,
+        #1b2d4d 50%,
+        #1f3c5c 75%,
+        #24486b 100%
+    );
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+    position: relative;
+    overflow: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.025) 0%, transparent 25%),
+        radial-gradient(circle at 80% 30%, rgba(255, 255, 255, 0.025) 0%, transparent 25%),
+        radial-gradient(circle at 40% 70%, rgba(255, 255, 255, 0.025) 0%, transparent 25%),
+        radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.025) 0%, transparent 25%);
+    animation: shimmerBG 20s linear infinite;
+    pointer-events: none;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        linear-gradient(125deg, rgba(255,255,255,0.05) 0%, transparent 40%),
+        linear-gradient(200deg, rgba(255,255,255,0.03) 20%, transparent 60%);
+    pointer-events: none;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes shimmerBG {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: translateY(-20px) scale(1.1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.5;
+    }
+}
+
+.container {
+    width: 900px;
+    height: 900px;
+    position: relative;
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+    grid-template-rows: 300px 300px 300px;
+    gap: 0;
+    padding: 0;
+    transform-style: preserve-3d;
+    margin: 50px auto;
+    perspective: 2000px;
+}
+
+/* Center Note Area */
+.center-area {
+    grid-column: 2;
+    grid-row: 2;
+    background: linear-gradient(135deg, #20B2AA 0%, #48D1CC 100%);
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    z-index: 2;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    width: 300px;
+    height: 300px;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.center-area:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.center-area h2 {
+    color: white;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.center-area p {
+    color: white;
+    line-height: 1.6;
+    font-size: 1.1em;
+}
+
+.center-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Password Input */
+.password-form {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+    width: 100%;
+    text-align: center;
+}
+
+.password-form h1 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.8em;
+}
+
+.password-form input {
+    width: 80%;
+    max-width: 200px;
+    padding: 12px;
+    border: 2px solid #A23E48;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 1.1em;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.password-form input:focus {
+    box-shadow: 0 0 15px rgba(162, 62, 72, 0.3);
+    transform: scale(1.05);
+}
+
+/* Picture Panels */
+.picture-panel {
+    background: #1a1a1a;
+    border-radius: 15px;
+    cursor: pointer;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    transform-style: preserve-3d;
+    opacity: 1;
+    display: block;
+    overflow: hidden;
+}
+
+/* Picture Container */
+.picture-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #000;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.picture-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    opacity: 1;
+}
+
+/* Floating hearts background */
+.container::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.03) 0%, transparent 15%),
+        radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.03) 0%, transparent 15%),
+        radial-gradient(circle at 40% 60%, rgba(255, 255, 255, 0.03) 0%, transparent 15%),
+        radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 15%);
+    animation: floatingHearts 30s linear infinite;
+    mix-blend-mode: screen;
+}
+
+@keyframes floatingHearts {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 100% 100%; }
+}
+
+/* Layer-specific door styles with increased transparency */
+/* Layer 1 - Sunset Rose */
+.layer-1 .door-left, .layer-1 .door-right {
+    background: linear-gradient(135deg, rgba(255, 229, 180, 0.4), rgba(255, 218, 150, 0.4));
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.layer-1 .door-left::before, .layer-1 .door-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.15) 0%, transparent 40%);
+    border-radius: inherit;
+    mix-blend-mode: soft-light;
+}
+
+/* Layer 2 - Ocean Breeze */
+.layer-2 .door-left, .layer-2 .door-right {
+    background: linear-gradient(135deg, rgba(255, 142, 118, 0.4), rgba(255, 126, 98, 0.4));
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.layer-2 .door-left::before, .layer-2 .door-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.15) 0%, transparent 40%);
+    border-radius: inherit;
+    mix-blend-mode: soft-light;
+}
+
+/* Layer 3 - Purple Dream */
+.layer-3 .door-left, .layer-3 .door-right {
+    background: linear-gradient(135deg, rgba(232, 107, 87, 0.4), rgba(220, 91, 71, 0.4));
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.layer-3 .door-left::before, .layer-3 .door-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.15) 0%, transparent 40%);
+    border-radius: inherit;
+    mix-blend-mode: soft-light;
+}
+
+/* Layer 4 - Forest Mist */
+.layer-4 .door-left, .layer-4 .door-right {
+    background: linear-gradient(135deg, rgba(162, 62, 72, 0.4), rgba(146, 46, 56, 0.4));
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.layer-4 .door-left::before, .layer-4 .door-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.15) 0%, transparent 40%);
+    border-radius: inherit;
+    mix-blend-mode: soft-light;
+}
+
+/* Layer 5 - Golden Hour */
+.layer-5 .door-left, .layer-5 .door-right {
+    background: linear-gradient(135deg, rgba(110, 41, 52, 0.4), rgba(94, 25, 36, 0.4));
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.layer-5 .door-left::before, .layer-5 .door-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.15) 0%, transparent 40%);
+    border-radius: inherit;
+    mix-blend-mode: soft-light;
+}
+
+/* Layer 6 - Northern Lights */
+.layer-6 .door-left, .layer-6 .door-right {
+    background: linear-gradient(135deg, rgba(63, 23, 29, 0.4), rgba(47, 7, 13, 0.4));
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.layer-6 .door-left::before, .layer-6 .door-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.15) 0%, transparent 40%);
+    border-radius: inherit;
+    mix-blend-mode: soft-light;
+}
+
+/* Center area styles with modern gradients */
+.layer-1 .center-area {
+    background: linear-gradient(135deg, #ffd1ff 0%, #fae8ff 100%);
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.layer-2 .center-area {
+    background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.layer-3 .center-area {
+    background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.layer-4 .center-area {
+    background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.layer-5 .center-area {
+    background: linear-gradient(135deg, #fccb90 0%, #d57eeb 100%);
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.layer-6 .center-area {
+    background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Door base styles */
+.door-left, .door-right {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(4px);
+    z-index: 10;
+    display: block;
+}
+
+.door-left {
+    left: 0;
+    transform-origin: left;
+    border-radius: 15px 0 0 15px;
+}
+
+.door-right {
+    right: 0;
+    transform-origin: right;
+    border-radius: 0 15px 15px 0;
+}
+
+/* Door opening animations */
+.picture-panel.opened .door-left {
+    transform: perspective(2000px) rotateY(-110deg);
+    box-shadow: -5px 0 25px rgba(0,0,0,0.2);
+}
+
+.picture-panel.opened .door-right {
+    transform: perspective(2000px) rotateY(110deg);
+    box-shadow: 5px 0 25px rgba(0,0,0,0.2);
+}
+
+/* Picture container adjustment */
+.picture-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 15px;
+    background: #000;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+/* Hover effects */
+.door-left:hover, .door-right:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    cursor: pointer;
+}
+
+/* Adjust light reflection effect for better visibility */
+.door-left::before, .door-right::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,0.2) 0%, transparent 50%),
+        radial-gradient(circle at 70% 60%, rgba(255,255,255,0.15) 0%, transparent 40%);
+    border-radius: inherit;
+    mix-blend-mode: soft-light;
+}
+
+
+/* Door hinges */
+.hinge-top, .hinge-bottom {
+    background: #D6D6D6;
+    box-shadow: 
+        1px 1px 3px rgba(0,0,0,0.2),
+        inset 0 0 2px rgba(0,0,0,0.1);
+}
+
+.hinge-top::before, .hinge-bottom::before {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #4A4A4A;
+    border-radius: 50%;
+    left: 6px;
+    box-shadow: inset 0 0 4px rgba(0,0,0,0.5);
+}
+
+.hinge-top::before {
+    top: 10px;
+}
+
+.hinge-bottom::before {
+    bottom: 10px;
+}
+
+.door-left .hinge-top,
+.door-left .hinge-bottom {
+    left: -10px;
+    border-radius: 5px 0 0 5px;
+}
+
+.door-right .hinge-top,
+.door-right .hinge-bottom {
+    right: -10px;
+    border-radius: 0 5px 5px 0;
+}
+
+.hinge-top {
+    top: 30px;
+}
+
+.hinge-bottom {
+    bottom: 30px;
+}
+
+/* Remove sparkle animation */
+.door-left::after, .door-right::after {
+    display: none;
+}
+
+/* Panel Positions and Initial States */
+.panel-top {
+    grid-column: 2;
+    grid-row: 1;
+    transform: translateY(-100%) rotateX(90deg);
+    transform-origin: bottom;
+}
+
+.panel-right {
+    grid-column: 3;
+    grid-row: 2;
+    transform: translateX(100%) rotateY(-90deg);
+    transform-origin: left;
+}
+
+.panel-bottom {
+    grid-column: 2;
+    grid-row: 3;
+    transform: translateY(100%) rotateX(-90deg);
+    transform-origin: top;
+}
+
+.panel-left {
+    grid-column: 1;
+    grid-row: 2;
+    transform: translateX(-100%) rotateY(90deg);
+    transform-origin: right;
+}
+
+/* Falling Animation Classes */
+.panel-top.fall {
+    animation: fallTop 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) forwards;
+}
+
+.panel-right.fall {
+    animation: fallRight 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 0.2s forwards;
+}
+
+.panel-bottom.fall {
+    animation: fallBottom 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 0.4s forwards;
+}
+
+.panel-left.fall {
+    animation: fallLeft 1.2s cubic-bezier(0.645, 0.045, 0.355, 1) 0.6s forwards;
+}
+
+
+
+@keyframes fallTop {
+    0% {
+        opacity: 1;
+        transform: translateY(-100%) rotateX(90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+@keyframes fallRight {
+    0% {
+        opacity: 1;
+        transform: translateX(100%) rotateY(-90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotateY(0);
+    }
+}
+
+@keyframes fallBottom {
+    0% {
+        opacity: 1;
+        transform: translateY(100%) rotateX(-90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotateX(0);
+    }
+}
+
+@keyframes fallLeft {
+    0% {
+        opacity: 1;
+        transform: translateX(-100%) rotateY(90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0) rotateY(0);
+    }
+}
+
+/* Navigation */
+.navigation {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 10px;
+    z-index: 1000;
+}
+
+.nav-btn {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2em;
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    padding: 5px;
+    position: relative;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn::before {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+#prevBtn::before {
+    transform: rotate(45deg);
+    left: 12px;
+}
+
+#nextBtn::before {
+    transform: rotate(225deg);
+    right: 12px;
+}
+
+.nav-btn:disabled {
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.nav-btn:hover:not(:disabled) {
+    color: rgba(255, 255, 255, 0.8);
+    opacity: 1;
+    transform: translateY(-2px);
+    cursor: pointer;
+}
+
+/* Hide the fixed navigation buttons */
+.fixed-navigation {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+    .container {
+        width: 90vw;
+        height: 90vw;
+    }
+    
+    .center-area {
+        padding: 15px;
+    }
+    
+    .password-form h1 {
+        font-size: 1.5em;
+    }
+    
+    .nav-btn {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .nav-btn::before {
+        width: 8px;
+        height: 8px;
+    }
+    
+    #prevBtn::before {
+        left: 10px;
+    }
+    
+    #nextBtn::before {
+        right: 10px;
+    }
+    
+    .navigation {
+        gap: 15px;
+        padding-bottom: 5px;
+    }
+} 
+
