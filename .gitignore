@@ -1,8 +1,5 @@
 # Development files
 node_modules/
-script.js
-styles.css
-index.html
 test.html
 rename_photos.py
 
@@ -16,4 +13,8 @@ Thumbs.db
 
 # Logs
 *.log
-npm-debug.log* 
+npm-debug.log*
+
+# Exclude unnecessary directories and files
+dist/
+temp/ 
