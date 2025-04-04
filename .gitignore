@@ -1,5 +1,26 @@
-.DS_Store
-node_modules/
-.env
+# Exclude sensitive files
+script.js
 *.log
-Thumbs.db 
+.env
+node_modules/
+.DS_Store
+
+# Development files
+node_modules/
+script.js
+styles.css
+index.html
+test.html
+rename_photos.py
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+
+# Logs
+*.log
+npm-debug.log* 
