@@ -1,0 +1,20 @@
+{
+  "name": "anniversary",
+  "version": "1.0.0",
+  "description": "A special interactive anniversary website with animated doors and personal messages.",
+  "main": "script.js",
+  "scripts": {
+    "build:js": "javascript-obfuscator script.js --output ./dist/script.min.js --compact true --self-defending true --debug-protection true --string-array true --string-array-encoding base64",
+    "build:css": "cleancss -o ./dist/styles.min.css styles.css",
+    "prebuild": "mkdir dist 2>nul & mkdir dist\\pictures 2>nul",
+    "build": "npm run prebuild && npm run build:js && npm run build:css && copy index.html dist\\ && xcopy /s /i pictures dist\\pictures"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "javascript-obfuscator": "^5.0.0",
+    "uglify-js": "^3.17.4",
+    "clean-css-cli": "^5.6.2"
+  }
+}
